@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="login">Login</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_username">Enter username</string>
+    <string name="user_profile">User Profile</string>
+    <string name="brick_wall_background">Brick wall background</string>
+    <string name="register">Register</string>
+    <string name="enter_lastname">Enter lastname</string>
+    <string name="enter_firstname">Enter firstname</string>
+    <string name="new_user">New user?</string>
+    <string name="user_id">User Id : %s</string>
+    <string name="username">Username : %s</string>
+    <string name="firstname">Firstname : %s</string>
+    <string name="lastname">Lastname : %s</string>
+</resources>
