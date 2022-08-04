@@ -41,36 +41,40 @@ class RegisterActivity : AppCompatActivity() {
         lastName: String,
         password: String
     ): Boolean {
-        println(password)
-        var validationMessage = ""
+        var valid=true
         val userNameRegex = Regex("^[a-zA-Z0-9_.-]*$")
         val nameRegex = Regex("^[a-zA-Z ]*$")
         val passwordRegex = Regex("^[?!\\S]*$")
-        println(passwordRegex.containsMatchIn(password))
-        println(password.length)
-        when {
-            (userName.isBlank() || password.isEmpty() || firstName.isBlank() || lastName.isBlank()) -> validationMessage =
-                "Enter all fields"
-            !(userNameRegex.containsMatchIn(userName)) -> validationMessage =
-                "Username should only contain alphabets, numbers and characters(_,.,-)"
-            !(nameRegex.containsMatchIn(firstName))-> validationMessage =
-                "First name can only have alphabets"
-            !(nameRegex.containsMatchIn(lastName)) -> validationMessage =
-                "Last name can only have alphabets"
-            !(passwordRegex.containsMatchIn(password))-> validationMessage=
-                "password cannot include spaces"
-            (password.length<6) -> validationMessage =
-                "Password should have at-least 6 characters"
+            if((userName.isBlank() || password.isEmpty() || firstName.isBlank() || lastName.isBlank())) {
+                Toast.makeText(
+                    this@RegisterActivity,
+                    "Enter all fields",
+                    Toast.LENGTH_SHORT
+                ).show()
+                valid=false
+            }
+            if(!(userNameRegex.containsMatchIn(userName))) {
+                binding.username.error = "Username should only contain alphabets, numbers and characters(_,.,-)"
+                valid=false
+            }
+            if(!(nameRegex.containsMatchIn(firstName))) {
+                binding.firstname.error = "First name can only have alphabets"
+                valid=false
+            }
+            if(!(nameRegex.containsMatchIn(lastName))) {
+                binding.lastname.error = "Last name can only have alphabets"
+                valid=false
+            }
+            if(!(passwordRegex.containsMatchIn(password))) {
+                binding.password.error = "password cannot include spaces"
+                valid=false
+            }
+            if(password.length<6) {
+                binding.password.error = "Password should have at-least 6 characters"
+                valid=false
+            }
+        return valid
         }
-        if(validationMessage.isNotEmpty()){
-        Toast.makeText(
-            this@RegisterActivity,
-            validationMessage, Toast.LENGTH_SHORT
-        ).show()
-            return false
-        }
-        return true
-    }
 
     private fun register(
         userName: String,

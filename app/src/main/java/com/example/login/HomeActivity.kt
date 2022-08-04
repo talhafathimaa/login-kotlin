@@ -11,19 +11,18 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val userName = intent.getStringExtra("userName")
-        if (userName != null) {
-            getProfile(userName)
-        }
+        sessionManager = SessionManager(this)
+        getProfile()
     }
 
-    private fun getProfile(userName: String) {
+    private fun getProfile() {
         val retrofitInstance = RetrofitInstance.getRetrofitInstance().create(API::class.java)
-        retrofitInstance.getProfile(userName).enqueue(object : Callback<UserDetails> {
+        retrofitInstance.getProfile(token = "Bearer ${sessionManager.getToken()}").enqueue(object : Callback<UserDetails> {
             override fun onFailure(call: Call<UserDetails>, t: Throwable) {
                 Toast.makeText(
                     this@HomeActivity,
